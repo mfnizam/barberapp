@@ -8,8 +8,38 @@ on:
   workflow_dispatch:
 
 jobs:
-  development:
+  quality:
+    name: Code Quality
+   
+    runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: Remove prepare script
+      run: npm pkg delete scripts.prepare
+
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Linting and fix
+      run: npm run lint:fix --if-present
+
+    - name: Prettier and fix
+      run: npm run prettier:fix --if-present
+
+  test_and_coverage:
+    name: Test And Code Coverage
+ 
     runs-on: ubuntu-latest
     
     environment: development
@@ -17,7 +47,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
-        mongodb-version: ['5.0']
+        mongodb-version: ['5.x']
 
     steps:
     - uses: actions/checkout@v3
@@ -47,15 +77,12 @@ jobs:
         echo 'SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}' >> .env
         echo 'SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}' >> .env
         echo 'EMAIL_FROM=${{ secrets.EMAIL_FROM }}' >> .env
+    
+    - name: Remove prepare script
+      run: npm pkg delete scripts.prepare
 
     - name: Install dependencies
       run: npm install
-    
-    - name: Linting and fix
-      run: npm run lint:fix --if-present
-
-    - name: Prettier
-      run: npm run prettier:fix --if-present
 
     - name: Build
       run: npm run build --if-present
