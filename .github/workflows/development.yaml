@@ -25,9 +25,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     
-    - name: Remove prepare script
-      run: npm pkg delete scripts.prepare
-
     - name: Install dependencies
       run: npm install
     
@@ -78,9 +75,6 @@ jobs:
         echo 'SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}' >> .env
         echo 'EMAIL_FROM=${{ secrets.EMAIL_FROM }}' >> .env
     
-    - name: Remove prepare script
-      run: npm pkg delete scripts.prepare
-
     - name: Install dependencies
       run: npm install
 
