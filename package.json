@@ -1,6 +1,6 @@
 {
   "name": "barber-api",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "RESTful APIs for Barber App",
   "bin": "bin/createNodejsApp.js",
   "main": "src/index.js",
@@ -9,6 +9,10 @@
   "license": "MIT",
   "engines": {
     "node": ">=12.0.0"
+  },
+  "private": true,
+  "release": {
+    "branches": ["master"]
   },
   "scripts": {
     "start": "pm2 start ecosystem.config.json --no-daemon",
@@ -27,7 +31,8 @@
     "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up",
     "docker:test": "docker-compose -f docker-compose.yml -f docker-compose.test.yml up",
     "prepare": "node -e \"if (process.env.CI === undefined) require('husky').install()\"",
-    "commitizen": "cz"
+    "commitizen": "cz",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "barber",
@@ -96,7 +101,9 @@
     "node-mocks-http": "^1.8.0",
     "nodemon": "^2.0.0",
     "prettier": "^2.0.5",
-    "supertest": "^6.0.1"
+    "semantic-release-cli": "^5.4.4",
+    "supertest": "^6.0.1",
+    "semantic-release": "^19.0.5"
   },
   "config": {
     "commitizen": {
