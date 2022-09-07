@@ -7,6 +7,7 @@ describe('User model', () => {
     beforeEach(() => {
       newUser = {
         name: faker.name.findName(),
+        address: faker.address.streetAddress(true),
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
