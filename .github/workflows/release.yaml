@@ -7,7 +7,7 @@ on:
 
 jobs:
   quality_test_and_coverage:
-    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@main
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
 
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
