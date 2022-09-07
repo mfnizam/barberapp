@@ -87,6 +87,7 @@ jobs:
       run: npm run coverage:ci --if-present
 
   release:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     name: Release Code
     needs: [test_and_coverage]
  
