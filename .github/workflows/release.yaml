@@ -6,11 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  quality:
-    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@quality
-
-  test_and_coverage:
-    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@test_and_coverage
+  quality_test_and_coverage:
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@main
 
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
