@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  develepment:
+  development:
     name: Development
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
 
