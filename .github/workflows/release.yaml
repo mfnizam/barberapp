@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  quality:
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@quality
+
+  test_and_coverage:
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@test_and_coverage
+
+  release:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    name: Release Code
+    needs: [quality, test_and_coverage]
+ 
+    runs-on: ubuntu-latest
+    
+    environment: release
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Release
+      run: npm run semantic-release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
