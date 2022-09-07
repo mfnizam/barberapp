@@ -6,13 +6,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  quality_test_and_coverage:
+  develepment:
+    name: Development
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
 
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     name: Release Code
-    needs: [quality, test_and_coverage]
+    needs: [development]
  
     runs-on: ubuntu-latest
     
