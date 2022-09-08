@@ -21,29 +21,17 @@ jobs:
       id: print
       shell: bash
       run: |
-        echo "::set-output name=MONGODB_URL::${{ secrets.MONGODB_URL }}"
-        
-  getoutput:
-    name: Get Output
+        echo "::set-output name=MONGODB_URL::mongodb://127.0.0.1:27017/barber"
+
+  development:
+    name: Development
     runs-on: ubuntu-latest
+
     needs: 
       - env
-    steps:
-    - name: Get output
-      id: print
-      shell: bash
-      run: |
-        echo "${{ needs.env.outputs.MONGODB_URL }}"
-
-  # development:
-  #   name: Development
-  #   runs-on: ubuntu-latest
-
-  #   needs: 
-  #     - env
-  #   uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
-  #   secrets: 
-  #     MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
+    secrets: 
+      MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
       
   # release:
   #   if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
