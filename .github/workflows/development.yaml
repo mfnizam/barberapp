@@ -8,6 +8,7 @@ on:
     inputs:
       MONGODB_URL:
         required: true
+        type: string
 
 jobs:
   checkenv:
@@ -34,31 +35,31 @@ jobs:
         echo 'EMAIL_FROM=${{ secrets.EMAIL_FROM }}' >> .env
         cat .env
           
-  quality:
-    name: Code Quality
+  # quality:
+  #   name: Code Quality
    
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
     
-    - name: Install dependencies
-      run: npm install
+  #   - name: Install dependencies
+  #     run: npm install
     
-    - name: Linting and fix
-      run: npm run lint:fix --if-present
+  #   - name: Linting and fix
+  #     run: npm run lint:fix --if-present
 
-    - name: Prettier and fix
-      run: npm run prettier:fix --if-present
+  #   - name: Prettier and fix
+  #     run: npm run prettier:fix --if-present
 
   # test_and_coverage:
   #   name: Test And Code Coverage
