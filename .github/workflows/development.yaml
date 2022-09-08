@@ -17,7 +17,7 @@ on:
         type: string
       SMTP_PORT:
         required: true
-        type: number
+        type: string
       SMTP_USERNAME:
         required: true
         type: string
