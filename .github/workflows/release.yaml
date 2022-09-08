@@ -9,6 +9,8 @@ jobs:
   development:
     name: Development
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
+    with: 
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
       
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
