@@ -29,80 +29,100 @@ on:
         type: string
 
 jobs:
-  quality:
-    name: Code Quality
+
+  checkenv:
+    name: "Check Environment"
+    needs: environment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Deploy Key
+        id: get_deploy_key
+        shell: bash
+        run: |
+          echo "${{ inputs.MONGODB_URL }}"
+          echo "${{ inputs.JWT_SECRET }}"
+          echo "${{ inputs.SMTP_HOST }}"
+          echo "${{ inputs.SMTP_PORT }}"
+          echo "${{ inputs.SMTP_USERNAME }}"
+          echo "${{ inputs.SMTP_PASSWORD }}"
+          echo "${{ inputs.EMAIL_FROM }}"
+          
+  # quality:
+  #   name: Code Quality
    
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
     
-    - name: Install dependencies
-      run: npm install
+  #   - name: Install dependencies
+  #     run: npm install
     
-    - name: Linting and fix
-      run: npm run lint:fix --if-present
+  #   - name: Linting and fix
+  #     run: npm run lint:fix --if-present
 
-    - name: Prettier and fix
-      run: npm run prettier:fix --if-present
+  #   - name: Prettier and fix
+  #     run: npm run prettier:fix --if-present
 
-  test_and_coverage:
-    name: Test And Code Coverage
-    needs: quality
+  # test_and_coverage:
+  #   name: Test And Code Coverage
+  #   needs: quality
  
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    environment: development
+  #   environment: development
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        mongodb-version: ['5.0']
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #       mongodb-version: ['5.0']
 
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
         
-    - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.8.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
+  #   - name: Start MongoDB
+  #     uses: supercharge/mongodb-github-action@1.8.0
+  #     with:
+  #       mongodb-version: ${{ matrix.mongodb-version }}
     
-    - name: Store variables
-      run: |
-        touch ".env"
-        echo 'MONGODB_URL=${{ secrets.MONGODB_URL }}' >> .env
-        echo 'JWT_SECRET=${{ secrets.JWT_SECRET }}' >> .env
+  #   - name: Store variables
+  #     run: |
+  #       touch ".env"
+  #       echo 'MONGODB_URL=${{ secrets.MONGODB_URL }}' >> .env
+  #       echo 'JWT_SECRET=${{ secrets.JWT_SECRET }}' >> .env
         
-        echo 'JWT_ACCESS_EXPIRATION_MINUTES=30' >> .env
-        echo 'JWT_REFRESH_EXPIRATION_DAYS=30' >> .env
-        echo 'JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10' >> .env
-        echo 'JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10' >> .env
+  #       echo 'JWT_ACCESS_EXPIRATION_MINUTES=30' >> .env
+  #       echo 'JWT_REFRESH_EXPIRATION_DAYS=30' >> .env
+  #       echo 'JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10' >> .env
+  #       echo 'JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10' >> .env
         
-        echo 'SMTP_HOST=${{ secrets.SMTP_HOST }}' >> .env
-        echo 'SMTP_PORT=${{ secrets.SMTP_PORT }}' >> .env
-        echo 'SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}' >> .env
-        echo 'SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}' >> .env
-        echo 'EMAIL_FROM=${{ secrets.EMAIL_FROM }}' >> .env
+  #       echo 'SMTP_HOST=${{ secrets.SMTP_HOST }}' >> .env
+  #       echo 'SMTP_PORT=${{ secrets.SMTP_PORT }}' >> .env
+  #       echo 'SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}' >> .env
+  #       echo 'SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}' >> .env
+  #       echo 'EMAIL_FROM=${{ secrets.EMAIL_FROM }}' >> .env
     
-    - name: Install dependencies
-      run: npm install
+  #   - name: Install dependencies
+  #     run: npm install
 
-    - name: Build
-      run: npm run build --if-present
+  #   - name: Build
+  #     run: npm run build --if-present
     
-    - name: Test & Coverage
-      run: npm run coverage:ci --if-present
+  #   - name: Test & Coverage
+  #     run: npm run coverage:ci --if-present
