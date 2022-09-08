@@ -5,7 +5,7 @@ on:
     branches: [ master ]
   workflow_dispatch:
   workflow_call:
-    secrets:
+    inputs:
       MONGODB_URL:
         required: true
 
@@ -19,7 +19,7 @@ jobs:
       shell: bash
       run: |
         touch ".env"
-        echo 'MONGODB_URL=${{ secrets.MONGODB_URL }}' >> .env
+        echo 'MONGODB_URL=${{ inputs.MONGODB_URL }}' >> .env
         echo 'JWT_SECRET=${{ secrets.JWT_SECRET }}' >> .env
         
         echo 'JWT_ACCESS_EXPIRATION_MINUTES=30' >> .env

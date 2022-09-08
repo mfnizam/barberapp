@@ -28,7 +28,7 @@ jobs:
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     needs: 
       - env
-    secrets: 
+    with: 
       MONGODB_URL: ${{ needs.env.outputs.MONGODB_URL }}
       
   # release:
