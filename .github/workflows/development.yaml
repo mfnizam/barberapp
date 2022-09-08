@@ -25,8 +25,11 @@ jobs:
   checkenv:
     name: "Check Environment"
     runs-on: ubuntu-latest
+    
+    environment: development
     env:
       SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
+    
     steps:
       - name: Get Deploy Key
         id: get_deploy_key
