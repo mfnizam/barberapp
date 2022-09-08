@@ -5,21 +5,6 @@ on:
     branches: [ master ]
   workflow_dispatch:
   workflow_call:
-    secrets:
-      MONGODB_URL:
-        required: true
-      JWT_SECRET:
-        required: true
-      SMTP_HOST:
-        required: true
-      SMTP_PORT:
-        required: true
-      SMTP_USERNAME:
-        required: true
-      SMTP_PASSWORD:
-        required: true
-      EMAIL_FROM:
-        required: true
 
 jobs:
   checkenv:
@@ -27,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Get Deploy Key
-        id: get_deploy_key
+      - name: Set .Env
         shell: bash
         run: |
           cp .env.example .env
