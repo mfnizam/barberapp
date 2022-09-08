@@ -68,7 +68,13 @@ jobs:
         id: get_deploy_key
         shell: bash
         run: |
-          echo "deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))"
+          echo "MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))"
+          echo "JWT_SECRET=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.JWT_SECRET }}" | base64 --decode))"
+          echo "SMTP_HOST=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_HOST }}" | base64 --decode))"
+          echo "SMTP_PORT=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PORT }}" | base64 --decode))"
+          echo "SMTP_USERNAME=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_USERNAME }}" | base64 --decode))"
+          echo "SMTP_PASSWORD=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PASSWORD }}" | base64 --decode))"
+          echo "EMAIL_FROM=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.EMAIL_FROM }}" | base64 --decode))"
   # development:
   #   name: Development
   #   uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
