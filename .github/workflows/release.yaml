@@ -21,7 +21,7 @@ jobs:
       id: print
       shell: bash
       run: |
-        echo "::set-output name=MONGODB_URL::mongodb://127.0.0.1:27017/barber"
+        echo "::set-output name=MONGODB_URL::${{ secrets.MONGODB_URL }}"
         
   getoutput:
     name: Get Output
