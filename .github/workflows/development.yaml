@@ -31,22 +31,7 @@ jobs:
         id: get_deploy_key
         shell: bash
         run: |
-          touch ".env"
-
-          echo "MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.MONGODB_URL }}" | base64 --decode))" >> .env
-          echo "JWT_SECRET=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.JWT_SECRET }}" | base64 --decode))" >> .env
-          
-          echo 'JWT_ACCESS_EXPIRATION_MINUTES=30' >> .env
-          echo 'JWT_REFRESH_EXPIRATION_DAYS=30' >> .env
-          echo 'JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10' >> .env
-          echo 'JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10' >> .env
-          
-          echo "SMTP_HOST=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.SMTP_HOST }}" | base64 --decode))" >> .env
-          echo "SMTP_PORT=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.SMTP_PORT }}" | base64 --decode))" >> .env
-          echo "SMTP_USERNAME=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.SMTP_USERNAME }}" | base64 --decode))" >> .env
-          echo "SMTP_PASSWORD=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.SMTP_PASSWORD }}" | base64 --decode))" >> .env
-          echo "EMAIL_FROM=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_PASSPHRASE }}" --output - <(echo "${{ secrets.EMAIL_FROM }}" | base64 --decode))" >> .env
-
+          cp .env.example .env
           cat .env
           
   # quality:
