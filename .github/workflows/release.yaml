@@ -63,13 +63,13 @@ jobs:
     needs: 
       - environment
     with:
-      MONGODB_URL: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))
-      JWT_SECRET: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.JWT_SECRET }}" | base64 --decode))
-      SMTP_HOST: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.SMTP_HOST }}" | base64 --decode))
-      SMTP_PORT: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PORT }}" | base64 --decode))
-      SMTP_USERNAME: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.SMTP_USERNAME }}" | base64 --decode))
-      SMTP_PASSWORD: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PASSWORD }}" | base64 --decode))
-      EMAIL_FROM: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ (1fatikhunnizam1) }}" --output - <(echo "${{ needs.environment.outputs.EMAIL_FROM }}" | base64 --decode))
+      MONGODB_URL: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))
+      JWT_SECRET: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.JWT_SECRET }}" | base64 --decode))
+      SMTP_HOST: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_HOST }}" | base64 --decode))
+      SMTP_PORT: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_PORT }}" | base64 --decode))
+      SMTP_USERNAME: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_USERNAME }}" | base64 --decode))
+      SMTP_PASSWORD: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_PASSWORD }}" | base64 --decode))
+      EMAIL_FROM: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.EMAIL_FROM }}" | base64 --decode))
 
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
