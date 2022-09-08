@@ -6,9 +6,34 @@ on:
   workflow_dispatch:
 
 jobs:
+  environment:
+    name: Prepare Environment
+    runs-on: ubuntu-latest
+    environment: development
+    outputs:
+      MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
+      another_var: ${{ steps.print.outputs.JWT_SECRET }}   
+    steps:
+      - name: Print inputs passed to the reusable workflow
+        id: print
+        run: |
+          echo "::set-output name=MONGODB_URL::${{ secrets.MONGODB_URL }}"
+          echo "::set-output name=JWT_SECRET::${{ secrets.JWT_SECRET }}"
+
   development:
     name: Development
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
+    needs: 
+      - environment
+    secrets:
+      MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
+      JWT_SECRET: ${{ needs.environment.outputs.JWT_SECRET }}
+      
+      # SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      # SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      # SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      # SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      # EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
 
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true

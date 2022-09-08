@@ -5,6 +5,11 @@ on:
     branches: [ master ]
   workflow_dispatch:
   workflow_call:
+    secrets:
+      MONGODB_URL:
+        required: true
+      JWT_SECRET:
+        required: true
 
 jobs:
   quality:
