@@ -10,6 +10,16 @@ on:
         required: true
       JWT_SECRET:
         required: true
+      SMTP_HOST:
+        required: true
+      SMTP_PORT:
+        required: true
+      SMTP_USERNAME:
+        required: true
+      SMTP_PASSWORD:
+        required: true
+      EMAIL_FROM:
+        required: true
 
 jobs:
   quality:
