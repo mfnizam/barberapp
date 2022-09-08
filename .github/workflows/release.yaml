@@ -6,12 +6,32 @@ on:
   workflow_dispatch:
 
 jobs:
+  environment:
+    name: Prepare Environment
+    
+    runs-on: ubuntu-latest
+    
+    environment: development
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      
+    outputs:
+      MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
+    
+    steps:
+      - name: Print inputs passed to the reusable workflow
+        id: print
+        shell: bash
+        run: |
+          echo "::add-mask::$MONGODB_URL"
+          echo "::set-output name=MONGODB_URL::$MONGODB_URL"
+
   development:
     name: Development
+    needs: environment
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
-    environment: development
     with: 
-      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
       
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
