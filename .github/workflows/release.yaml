@@ -62,7 +62,7 @@ jobs:
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     needs: 
       - environment
-    with:
+    secrets:
       MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
       JWT_SECRET: ${{ needs.environment.outputs.JWT_SECRET }}
       SMTP_HOST: ${{ needs.environment.outputs.SMTP_HOST }}
