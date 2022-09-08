@@ -25,11 +25,9 @@ jobs:
 
   development:
     name: Development
-    runs-on: ubuntu-latest
-
+    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     needs: 
       - env
-    uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     secrets: 
       MONGODB_URL: ${{ needs.env.outputs.MONGODB_URL }}
       
