@@ -34,32 +34,21 @@ jobs:
         run: |
           touch ".env"
 
-          echo "MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.MONGODB_URL }}" | base64 --decode))" >> .env
-          echo "JWT_SECRET=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.JWT_SECRET }}" | base64 --decode))" >> .env
+          echo "MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.MONGODB_URL }}" | base64 --decode))" >> .env
+          echo "JWT_SECRET=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.JWT_SECRET }}" | base64 --decode))" >> .env
           
           echo 'JWT_ACCESS_EXPIRATION_MINUTES=30' >> .env
           echo 'JWT_REFRESH_EXPIRATION_DAYS=30' >> .env
           echo 'JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10' >> .env
           echo 'JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10' >> .env
           
-          echo "SMTP_HOST=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.SMTP_HOST }}" | base64 --decode))" >> .env
-          echo "SMTP_PORT=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.SMTP_PORT }}" | base64 --decode))" >> .env
-          echo "SMTP_USERNAME=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.SMTP_USERNAME }}" | base64 --decode))" >> .env
-          echo "SMTP_PASSWORD=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.SMTP_PASSWORD }}" | base64 --decode))" >> .env
-          echo "EMAIL_FROM=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ inputs.EMAIL_FROM }}" | base64 --decode))" >> .env
-          
-          cat .env
-          
-      # echo 'MONGODB_URL=${{ inputs.MONGODB_URL }}' >> .env
-      # echo 'JWT_SECRET=${{ inputs.JWT_SECRET }}' >> .env
-      
-      
-      # echo 'SMTP_HOST=${{ inputs.SMTP_HOST }}' >> .env
-      # echo 'SMTP_PORT=${{ inputs.SMTP_PORT }}' >> .env
-      # echo 'SMTP_USERNAME=${{ inputs.SMTP_USERNAME }}' >> .env
-      # echo 'SMTP_PASSWORD=${{ inputs.SMTP_PASSWORD }}' >> .env
-      # echo 'EMAIL_FROM=${{ inputs.EMAIL_FROM }}' >> .env
+          echo "SMTP_HOST=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.SMTP_HOST }}" | base64 --decode))" >> .env
+          echo "SMTP_PORT=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.SMTP_PORT }}" | base64 --decode))" >> .env
+          echo "SMTP_USERNAME=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.SMTP_USERNAME }}" | base64 --decode))" >> .env
+          echo "SMTP_PASSWORD=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.SMTP_PASSWORD }}" | base64 --decode))" >> .env
+          echo "EMAIL_FROM=$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "${{ secrets.EMAIL_FROM }}" | base64 --decode))" >> .env
 
+          cat .env
           
   # quality:
   #   name: Code Quality
