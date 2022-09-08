@@ -20,7 +20,7 @@ jobs:
       SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-      SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
+      SECRET: ${{ secrets.PGP_PASSPHRASE }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
@@ -62,7 +62,7 @@ jobs:
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     needs: 
       - environment
-    with:
+    secrets:
       MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
       JWT_SECRET: ${{ needs.environment.outputs.JWT_SECRET }}
       SMTP_HOST: ${{ needs.environment.outputs.SMTP_HOST }}
@@ -70,6 +70,7 @@ jobs:
       SMTP_USERNAME: ${{ needs.environment.outputs.SMTP_USERNAME }}
       SMTP_PASSWORD: ${{ needs.environment.outputs.SMTP_PASSWORD }}
       EMAIL_FROM: ${{ needs.environment.outputs.EMAIL_FROM }}
+      PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
       
   release:
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
