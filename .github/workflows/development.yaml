@@ -31,8 +31,8 @@ jobs:
         id: get_deploy_key
         shell: bash
         run: |
-          echo ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
-          
+          echo "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}"
+
       # touch ".env"
 
       # echo "MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ secrets.MONGODB_URL }}" | base64 --decode))" >> .env
