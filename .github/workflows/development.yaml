@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@v3
     - name: Set .Env
       shell: bash
       run: |
-        cp "./../../.env.example" "./../../.env"
+        cp .env.example .env
         cat .env
           
   # quality:
