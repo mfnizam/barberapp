@@ -33,7 +33,7 @@ jobs:
       id: print
       shell: bash
       run: |
-        echo "${{ needs.environment.outputs.MONGODB_URL }}"
+        echo "${{ needs.env.outputs.MONGODB_URL }}"
 
   # development:
   #   name: Development
