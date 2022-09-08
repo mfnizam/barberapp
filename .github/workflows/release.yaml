@@ -15,15 +15,26 @@ jobs:
     env:
       MONGODB_URL: ${{ secrets.MONGODB_URL }}
       JWT_SECRET:  ${{ secrets.JWT_SECRET }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
       SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
-      JWT_SECRET: ${{ steps.print.outputs.JWT_SECRET }}   
+      JWT_SECRET: ${{ steps.print.outputs.JWT_SECRET }}  
+      SMTP_HOST: ${{ steps.print.outputs.SMTP_HOST }}
+      SMTP_PORT: ${{ steps.print.outputs.SMTP_PORT }}
+      SMTP_USERNAME: ${{ steps.print.outputs.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ steps.print.outputs.SMTP_PASSWORD }}
+      EMAIL_FROM: ${{ steps.print.outputs.EMAIL_FROM }} 
     
     steps:
       - name: Print inputs passed to the reusable workflow
         id: print
+        shell: bash
         run: |
           echo "::add-mask::$MONGODB_URL"
           echo "::set-output name=MONGODB_URL::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$MONGODB_URL") | base64 -w0)"
@@ -31,15 +42,39 @@ jobs:
           echo "::add-mask::$JWT_SECRET"
           echo "::set-output name=JWT_SECRET::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$JWT_SECRET") | base64 -w0)"
 
+          echo "::add-mask::$SMTP_HOST"
+          echo "::set-output name=SMTP_HOST::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$SMTP_HOST") | base64 -w0)"
+
+          echo "::add-mask::$SMTP_PORT"
+          echo "::set-output name=SMTP_PORT::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$SMTP_PORT") | base64 -w0)"
+          
+          echo "::add-mask::$SMTP_USERNAME"
+          echo "::set-output name=SMTP_USERNAME::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$SMTP_USERNAME") | base64 -w0)"
+
+          echo "::add-mask::$SMTP_PASSWORD"
+          echo "::set-output name=SMTP_PASSWORD::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$SMTP_PASSWORD") | base64 -w0)"
+
+          echo "::add-mask::$EMAIL_FROM"
+          echo "::set-output name=EMAIL_FROM::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$EMAIL_FROM") | base64 -w0)"
+          
+
   development:
     name: Development
     uses: mfnizam/barberapp-api/.github/workflows/development.yaml@master
     needs: 
       - environment
     secrets:
-      MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
-      JWT_SECRET: ${{ needs.environment.outputs.JWT_SECRET }}
-      
+      MONGODB_URL: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))
+      JWT_SECRET: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.JWT_SECRET }}" | base64 --decode))
+      SMTP_HOST: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_HOST }}" | base64 --decode))
+      SMTP_PORT: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PORT }}" | base64 --decode))
+      SMTP_USERNAME: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_USERNAME }}" | base64 --decode))
+      SMTP_PASSWORD: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.SMTP_PASSWORD }}" | base64 --decode))
+      EMAIL_FROM: deployment_key=$(gpg --decrypt --quiet --batch --passphrase "${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}" --output - <(echo "${{ needs.environment.outputs.EMAIL_FROM }}" | base64 --decode))
+
+
+      # MONGODB_URL: ${{ needs.environment.outputs.MONGODB_URL }}
+      # JWT_SECRET: ${{ needs.environment.outputs.JWT_SECRET }}
       # SMTP_HOST: ${{ secrets.SMTP_HOST }}
       # SMTP_PORT: ${{ secrets.SMTP_PORT }}
       # SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
