@@ -41,13 +41,13 @@ jobs:
         run: |
           touch ".env"
 
-          MONGODB_URL: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.MONGODB_URL }}" | base64 --decode))
-          JWT_SECRET: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.JWT_SECRET }}" | base64 --decode))
-          SMTP_HOST: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_HOST }}" | base64 --decode))
-          SMTP_PORT: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_PORT }}" | base64 --decode))
-          SMTP_USERNAME: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_USERNAME }}" | base64 --decode))
-          SMTP_PASSWORD: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.SMTP_PASSWORD }}" | base64 --decode))
-          EMAIL_FROM: $(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ needs.environment.outputs.EMAIL_FROM }}" | base64 --decode))
+          MONGODB_URL=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.MONGODB_URL }}" | base64 --decode))
+          JWT_SECRET=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.JWT_SECRET }}" | base64 --decode))
+          SMTP_HOST=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.SMTP_HOST }}" | base64 --decode))
+          SMTP_PORT=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.SMTP_PORT }}" | base64 --decode))
+          SMTP_USERNAME=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.SMTP_USERNAME }}" | base64 --decode))
+          SMTP_PASSWORD=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.SMTP_PASSWORD }}" | base64 --decode))
+          EMAIL_FROM=$(gpg --decrypt --quiet --batch --passphrase "(1fatikhunnizam1)" --output - <(echo "${{ inputs.EMAIL_FROM }}" | base64 --decode))
 
           echo MONGODB_URL
           echo JWT_SECRET
