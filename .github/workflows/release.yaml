@@ -15,6 +15,7 @@ jobs:
     env:
       MONGODB_URL: ${{ secrets.MONGODB_URL }}
       JWT_SECRET:  ${{ secrets.JWT_SECRET }}
+      SECRET: ${{ secret.PGP_SECRET_SIGNING_PASSPHRASE }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
@@ -25,9 +26,10 @@ jobs:
         id: print
         run: |
           echo "::add-mask::$MONGODB_URL"
-          echo "::set-output name=MONGODB_URL::$MONGODB_URL"
+          echo "::set-output name=MONGODB_URL::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$MONGODB_URL") | base64 -w0)"
+
           echo "::add-mask::$JWT_SECRET"
-          echo "::set-output name=JWT_SECRET::$JWT_SECRET"
+          echo "::set-output name=JWT_SECRET::$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$JWT_SECRET") | base64 -w0)"
 
   development:
     name: Development
