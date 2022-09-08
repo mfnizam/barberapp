@@ -5,10 +5,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
   workflow_call:
-    inputs:
+    secrets:
       MONGODB_URL:
         required: true
-        type: string
 
 jobs:
   checkenv:
