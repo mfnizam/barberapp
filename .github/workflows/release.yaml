@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     
     environment: development
-    env:
-      MONGODB_URL: ${{ secrets.MONGODB_URL }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
@@ -31,11 +29,11 @@ jobs:
     needs: 
       - env
     steps:
-    - name: Print inputs passed to the reusable workflow
+    - name: Get output
       id: print
       shell: bash
       run: |
-        echo ${{ needs.environment.outputs.MONGODB_URL }}
+        echo "${{ needs.environment.outputs.MONGODB_URL }}"
 
   # development:
   #   name: Development
