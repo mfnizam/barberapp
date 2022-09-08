@@ -23,8 +23,7 @@ jobs:
         id: print
         shell: bash
         run: |
-          echo "::add-mask::$MONGODB_URL"
-          echo "::set-output name=MONGODB_URL::$MONGODB_URL"
+          echo "::set-output name=MONGODB_URL::mongodb://127.0.0.1:27017/barber"
 
   development:
     name: Development
