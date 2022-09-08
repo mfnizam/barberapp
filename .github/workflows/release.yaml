@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     
     environment: development
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      SECRET: ${{ secrets.PGP_PASSPHRASE }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
@@ -21,7 +24,8 @@ jobs:
       id: print
       shell: bash
       run: |
-        echo "::set-output name=MONGODB_URL::${{ secrets.MONGODB_URL }}"
+        MONGODB_URL_D=$(gpg --symmetric --batch --passphrase "$SECRET" --output - <(echo "$MONGODB_URL") | base64 -w0)
+        echo "::set-output name=MONGODB_URL::$(gpg --decrypt --quiet --batch --passphrase "$SECRET" --output - <(echo "$MONGODB_URL_D" | base64 --decode))"
 
   development:
     name: Development
