@@ -15,7 +15,7 @@ jobs:
     env:
       MONGODB_URL: ${{ secrets.MONGODB_URL }}
       JWT_SECRET:  ${{ secrets.JWT_SECRET }}
-      SECRET: ${{ secret.PGP_SECRET_SIGNING_PASSPHRASE }}
+      SECRET: ${{ secrets.PGP_SECRET_SIGNING_PASSPHRASE }}
       
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
