@@ -5,21 +5,28 @@ on:
     branches: [ master ]
   workflow_dispatch:
   workflow_call:
-    secrets:
+    inputs:
       MONGODB_URL:
         required: true
+        type: string
       JWT_SECRET:
         required: true
+        type: string
       SMTP_HOST:
         required: true
+        type: string
       SMTP_PORT:
         required: true
+        type: string
       SMTP_USERNAME:
         required: true
+        type: string
       SMTP_PASSWORD:
         required: true
+        type: string
       EMAIL_FROM:
         required: true
+        type: string
 
 jobs:
   checkenv:
