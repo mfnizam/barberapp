@@ -8,17 +8,26 @@ on:
 jobs:
   environment:
     name: Prepare Environment
+    
     runs-on: ubuntu-latest
+    
     environment: development
+    env:
+      MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      JWT_SECRET:  ${{ secrets.JWT_SECRET }}
+      
     outputs:
       MONGODB_URL: ${{ steps.print.outputs.MONGODB_URL }}
-      another_var: ${{ steps.print.outputs.JWT_SECRET }}   
+      JWT_SECRET: ${{ steps.print.outputs.JWT_SECRET }}   
+    
     steps:
       - name: Print inputs passed to the reusable workflow
         id: print
         run: |
-          echo "::set-output name=MONGODB_URL::${{ secrets.MONGODB_URL }}"
-          echo "::set-output name=JWT_SECRET::${{ secrets.JWT_SECRET }}"
+          echo "::add-mask::$MONGODB_URL"
+          echo "::set-output name=MONGODB_URL::$MONGODB_URL"
+          echo "::add-mask::$JWT_SECRET"
+          echo "::set-output name=JWT_SECRET::$JWT_SECRET"
 
   development:
     name: Development
