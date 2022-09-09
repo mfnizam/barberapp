@@ -38,10 +38,13 @@ module.exports = router;
  *             type: object
  *             required:
  *               - name
+ *               - address
  *               - email
  *               - password
  *             properties:
  *               name:
+ *                 type: string
+ *               address:
  *                 type: string
  *               email:
  *                 type: string
@@ -54,6 +57,7 @@ module.exports = router;
  *                 description: At least one number and one letter
  *             example:
  *               name: fake name
+ *               address: fake adress
  *               email: fake@example.com
  *               password: password1
  *     responses:
