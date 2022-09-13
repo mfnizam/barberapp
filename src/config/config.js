@@ -32,11 +32,21 @@ if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
+const getDatabaseName = function (env, databaseUrl) {
+  if (env === 'test') {
+    return `${databaseUrl}-test`;
+  }
+  if (env === 'development') {
+    return `${databaseUrl}-dev`;
+  }
+  return databaseUrl;
+};
+
 module.exports = {
   env: envVars.NODE_ENV,
   port: envVars.PORT,
   mongoose: {
-    url: envVars.MONGODB_URL + (envVars.NODE_ENV === 'test' ? '-test' : ''),
+    url: getDatabaseName(envVars.NODE_ENV, envVars.MONGODB_URL),
     options: {
       useCreateIndex: true,
       useNewUrlParser: true,

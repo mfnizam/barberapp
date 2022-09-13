@@ -20,6 +20,16 @@ const paginate = (schema) => {
    * @returns {Promise<QueryResult>}
    */
   schema.statics.paginate = async function (filter, options) {
+    /* 
+      Check if filter contain nested object and convert to object
+    */
+    Object.keys(filter).forEach((val) => {
+      try {
+        filter[val] = JSON.parse(filter[val]);
+      } catch (e) {
+        return false;
+      }
+    });
     let sort = '';
     if (options.sortBy) {
       const sortingCriteria = [];

@@ -30,7 +30,7 @@ const userTwo = {
 const admin = {
   _id: mongoose.Types.ObjectId(),
   name: faker.name.findName(),
-  address: faker.address.streetAddress(true),  
+  address: faker.address.streetAddress(true),
   email: faker.internet.email().toLowerCase(),
   password,
   role: 'admin',
