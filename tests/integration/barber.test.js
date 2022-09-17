@@ -3,7 +3,7 @@ const httpStatus = require('http-status');
 const app = require('../../src/app');
 const setupTestDB = require('../utils/setupTestDB');
 const { userOne, barberOne, barberOneRoleDetail, admin, insertUsers, insertBarbers } = require('../fixtures/user.fixture');
-const { userOneAccessToken, barberOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+const { userOneAccessToken } = require('../fixtures/token.fixture');
 
 setupTestDB();
 
@@ -57,8 +57,8 @@ describe('User routes', () => {
       expect(res.body.results).toHaveLength(1);
       expect(res.body.results[0].id).toBe(barberOne._id.toHexString());
       expect(res.body.results[0].role).toBe('barber');
-      expect(res.body.results.every(user => user.role == 'barber')).toBe(true);
-    })
+      expect(res.body.results.every((user) => user.role == 'barber')).toBe(true);
+    });
 
     // test('should return 401 if access token is missing', async () => {
     //   await insertUsers([userOne, barberOne, admin]);

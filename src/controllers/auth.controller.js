@@ -9,10 +9,10 @@ const register = catchAsync(async (req, res) => {
 });
 
 const registerBarber = catchAsync(async (req, res) => {
-  req.body['role'] = 'barber';
+  req.body.role = 'barber';
   const userCreate = await userService.createUser(req.body);
-  const barber = await barberService.createBarber({ user: userCreate.id});
-  const user = await userService.updateUserById(userCreate.id, { roleDetail: barber.id })
+  const barber = await barberService.createBarber({ user: userCreate.id });
+  const user = await userService.updateUserById(userCreate.id, { roleDetail: barber.id });
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });

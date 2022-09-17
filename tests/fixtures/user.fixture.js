@@ -8,7 +8,6 @@ const password = 'password1';
 const salt = bcrypt.genSaltSync(8);
 const hashedPassword = bcrypt.hashSync(password, salt);
 
-
 ids = {
   userOne: mongoose.Types.ObjectId(),
   userTwo: mongoose.Types.ObjectId(),
@@ -17,7 +16,7 @@ ids = {
   barberTwo: mongoose.Types.ObjectId(),
   barberTwoRoleDetail: mongoose.Types.ObjectId(),
   admin: mongoose.Types.ObjectId(),
-}
+};
 
 const userOne = {
   _id: ids.userOne,
@@ -43,41 +42,49 @@ const barberOneRoleDetail = {
   _id: ids.barberOneRoleDetail,
   user: ids.barberOne,
   detail: faker.lorem.lines(),
-  workingHours: [{
-    dayOfWeek: 0,
-    close: true
-  }, {
-    dayOfWeek: 1,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 2,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 3,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 4,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 5,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 6,
-    hourStart: '11:00',
-    hourEnd: '17:00',
-    close: false
-  }]
-}
+  workingHours: [
+    {
+      dayOfWeek: 0,
+      close: true,
+    },
+    {
+      dayOfWeek: 1,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 2,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 3,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 4,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 5,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 6,
+      hourStart: '11:00',
+      hourEnd: '17:00',
+      close: false,
+    },
+  ],
+};
 
 const barberOne = {
   _id: ids.barberOne,
@@ -94,41 +101,49 @@ const barberTwoRoleDetail = {
   _id: ids.barberOneRoleDetail,
   user: ids.barberOne,
   detail: faker.lorem.lines(),
-  workingHours: [{
-    dayOfWeek: 0,
-    close: true
-  }, {
-    dayOfWeek: 1,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 2,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 3,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 4,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 5,
-    hourStart: '11:00',
-    hourEnd: '20:00',
-    close: false
-  }, {
-    dayOfWeek: 6,
-    hourStart: '11:00',
-    hourEnd: '17:00',
-    close: false
-  }]
-}
+  workingHours: [
+    {
+      dayOfWeek: 0,
+      close: true,
+    },
+    {
+      dayOfWeek: 1,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 2,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 3,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 4,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 5,
+      hourStart: '11:00',
+      hourEnd: '20:00',
+      close: false,
+    },
+    {
+      dayOfWeek: 6,
+      hourStart: '11:00',
+      hourEnd: '17:00',
+      close: false,
+    },
+  ],
+};
 
 const barberTwo = {
   _id: ids.barberTwo,
@@ -168,5 +183,5 @@ module.exports = {
   barberTwoRoleDetail,
   admin,
   insertUsers,
-  insertBarbers
+  insertBarbers,
 };

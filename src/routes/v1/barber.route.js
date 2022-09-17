@@ -6,13 +6,9 @@ const barberController = require('../../controllers/barber.controller');
 
 const router = express.Router();
 
-router
-  .route('/')
-  .get(auth('getBarbers'), validate(barberValidation.getBarbers), barberController.getBarbers);
+router.route('/').get(auth('getBarbers'), validate(barberValidation.getBarbers), barberController.getBarbers);
 
-router
-  .route('/:userId')
-  .get(auth('getBarbers'), validate(barberValidation.getBarber), barberController.getBarber);
+router.route('/:userId').get(auth('getBarbers'), validate(barberValidation.getBarber), barberController.getBarber);
 
 module.exports = router;
 

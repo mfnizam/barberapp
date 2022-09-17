@@ -19,5 +19,5 @@ const getBarber = {
 
 module.exports = {
   getBarbers,
-  getBarber
+  getBarber,
 };

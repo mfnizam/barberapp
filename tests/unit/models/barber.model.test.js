@@ -4,46 +4,53 @@ const { barberOne } = require('../../fixtures/user.fixture');
 
 describe('Barber model', () => {
   describe('Barber validation', () => {
-
     let newBarber;
     beforeEach(() => {
       newBarber = {
         user: barberOne._id,
         detail: faker.lorem.lines(),
-        workingHours: [{
-          dayOfWeek: 0,
-          close: true
-        }, {
-          dayOfWeek: 1,
-          hourStart: '11:00',
-          hourEnd: '20:00',
-          close: false
-        }, {
-          dayOfWeek: 2,
-          hourStart: '11:00',
-          hourEnd: '20:00',
-          close: false
-        }, {
-          dayOfWeek: 3,
-          hourStart: '11:00',
-          hourEnd: '20:00',
-          close: false
-        }, {
-          dayOfWeek: 4,
-          hourStart: '11:00',
-          hourEnd: '20:00',
-          close: false
-        }, {
-          dayOfWeek: 5,
-          hourStart: '11:00',
-          hourEnd: '20:00',
-          close: false
-        }, {
-          dayOfWeek: 6,
-          hourStart: '11:00',
-          hourEnd: '17:00',
-          close: false
-        }]
+        workingHours: [
+          {
+            dayOfWeek: 0,
+            close: true,
+          },
+          {
+            dayOfWeek: 1,
+            hourStart: '11:00',
+            hourEnd: '20:00',
+            close: false,
+          },
+          {
+            dayOfWeek: 2,
+            hourStart: '11:00',
+            hourEnd: '20:00',
+            close: false,
+          },
+          {
+            dayOfWeek: 3,
+            hourStart: '11:00',
+            hourEnd: '20:00',
+            close: false,
+          },
+          {
+            dayOfWeek: 4,
+            hourStart: '11:00',
+            hourEnd: '20:00',
+            close: false,
+          },
+          {
+            dayOfWeek: 5,
+            hourStart: '11:00',
+            hourEnd: '20:00',
+            close: false,
+          },
+          {
+            dayOfWeek: 6,
+            hourStart: '11:00',
+            hourEnd: '17:00',
+            close: false,
+          },
+        ],
       };
     });
 

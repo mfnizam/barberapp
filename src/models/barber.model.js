@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { toJSON, paginate } = require('./plugins');
-const { roles } = require('../config/roles');
 
 const barberSchema = mongoose.Schema(
   {
@@ -15,27 +13,29 @@ const barberSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    workingHours: [{
-      dayOfWeek: {
-        type: Number,
-        required: true
+    workingHours: [
+      {
+        dayOfWeek: {
+          type: Number,
+          required: true,
+        },
+        hourStart: {
+          type: String,
+          required() {
+            return this.close === false;
+          },
+        },
+        hourEnd: {
+          type: String,
+          required() {
+            return this.close === false;
+          },
+        },
+        close: {
+          type: Boolean,
+        },
       },
-      hourStart: {
-        type: String,
-        required: function () {
-          return this.close == false;
-        }
-      },
-      hourEnd: {
-        type: String,
-        required: function () {
-          return this.close == false;
-        }
-      },
-      close: {
-        type: Boolean
-      }
-    }],
+    ],
   },
   {
     timestamps: true,

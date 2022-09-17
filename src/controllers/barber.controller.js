@@ -23,5 +23,5 @@ const getBarber = catchAsync(async (req, res) => {
 
 module.exports = {
   getBarbers,
-  getBarber
+  getBarber,
 };
