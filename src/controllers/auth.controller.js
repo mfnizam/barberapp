@@ -1,9 +1,18 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { authService, userService, tokenService, emailService } = require('../services');
+const { authService, userService, barberService, tokenService, emailService } = require('../services');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
+  const tokens = await tokenService.generateAuthTokens(user);
+  res.status(httpStatus.CREATED).send({ user, tokens });
+});
+
+const registerBarber = catchAsync(async (req, res) => {
+  req.body['role'] = 'barber';
+  const userCreate = await userService.createUser(req.body);
+  const barber = await barberService.createBarber({ user: userCreate.id});
+  const user = await userService.updateUserById(userCreate.id, { roleDetail: barber.id })
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
@@ -49,6 +58,7 @@ const verifyEmail = catchAsync(async (req, res) => {
 
 module.exports = {
   register,
+  registerBarber,
   login,
   logout,
   refreshTokens,

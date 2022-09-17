@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { toJSON } = require('./plugins');
 const { tokenTypes } = require('../config/tokens');
 
+// TODO: Add TTL for auto deleting token base on expires field, and delete expires field whent blacklist become true so TTL nevel delete document that been blacklisted
 const tokenSchema = mongoose.Schema(
   {
     token: {

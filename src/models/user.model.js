@@ -45,6 +45,10 @@ const userSchema = mongoose.Schema(
       enum: roles,
       default: 'user',
     },
+    roleDetail: { 
+      type: mongoose.SchemaTypes.ObjectId, 
+      refPath: 'role' 
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
