@@ -8,6 +8,7 @@ describe('User model', () => {
       newUser = {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
+        gender: 1,
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',

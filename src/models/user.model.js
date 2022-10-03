@@ -16,6 +16,9 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    gender: {
+      tyep: Number
+    },
     email: {
       type: String,
       required: true,

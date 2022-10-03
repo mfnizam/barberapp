@@ -8,6 +8,7 @@ const createUser = {
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
     address: Joi.string().required(),
+    gender: Joi.number(),
     role: Joi.string()
       .required()
       .valid(...roles),
@@ -40,6 +41,7 @@ const updateUser = {
       password: Joi.string().custom(password),
       name: Joi.string(),
       address: Joi.string(),
+      gender: Joi.number()
     })
     .min(1),
 };

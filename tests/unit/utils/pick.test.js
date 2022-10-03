@@ -8,6 +8,7 @@ describe('Config Environment', () => {
       newUser = {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
+        gender: 1,
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
@@ -15,9 +16,10 @@ describe('Config Environment', () => {
     });
 
     test('should return object composed of the picked object properties', async () => {
-      expect(pick(newUser, ['name', 'address'])).toMatchObject({
+      expect(pick(newUser, ['name', 'address', 'gender'])).toMatchObject({
         name: newUser.name,
         address: newUser.address,
+        gender: newUser.gender,
       });
     });
   });

@@ -17,6 +17,7 @@ describe('User routes', () => {
       newUser = {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
+        gender: 1,
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
@@ -37,6 +38,7 @@ describe('User routes', () => {
         id: expect.anything(),
         name: newUser.name,
         address: newUser.address,
+        gender: 1,
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
@@ -48,6 +50,7 @@ describe('User routes', () => {
       expect(dbUser).toMatchObject({
         name: newUser.name,
         address: newUser.address,
+        gender: 1,
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
@@ -170,6 +173,7 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         name: userOne.name,
         address: userOne.address,
+        gender: 1,
         email: userOne.email,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
@@ -398,6 +402,7 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         email: userOne.email,
         address: userOne.address,
+        gender: 1,
         name: userOne.name,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
@@ -518,6 +523,7 @@ describe('User routes', () => {
       const updateBody = {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
+        gender: 1,
         email: faker.internet.email().toLowerCase(),
         password: 'newPassword1',
       };
@@ -533,6 +539,7 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         name: updateBody.name,
         address: updateBody.address,
+        gender: 1,
         email: updateBody.email,
         role: 'user',
         isEmailVerified: false,
@@ -545,6 +552,7 @@ describe('User routes', () => {
       expect(dbUser).toMatchObject({
         name: updateBody.name,
         address: updateBody.address,
+        gender: 1,
         email: updateBody.email,
         role: 'user',
       });
