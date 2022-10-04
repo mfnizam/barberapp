@@ -20,7 +20,9 @@ components:
           type: string
         role:
           type: string
-          enum: [user, admin]
+          enum: [user, barber, admin]
+        roleDetail:
+          type: string
       example:
         id: 5ebac534954b54139806c112
         email: fake@example.com
@@ -30,6 +32,28 @@ components:
         dateOfBirth: 2020-05-12T16:18:04.793Z
         phoneNumber: '081885566778'
         role: user
+        roleDetail: 5ebac534954b54139806c112
+
+    Barber:
+      type: object
+      properties:
+        id:
+          type: string
+        detail:
+          type: string
+        workingHours: 
+          type: array
+          items: 
+            type: object
+            properties:
+              dayOfWeek:
+                type: number
+              hourStart:
+                type: string
+              hourEnd:
+                type: string
+              close:
+                type: Boolean
 
     Token:
       type: object
