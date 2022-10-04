@@ -18,6 +18,8 @@ describe('User routes', () => {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
         gender: 1,
+        dateOfBirth: faker.date.past(),
+        phoneNumber: faker.phone.phoneNumber(),
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
@@ -38,7 +40,9 @@ describe('User routes', () => {
         id: expect.anything(),
         name: newUser.name,
         address: newUser.address,
-        gender: 1,
+        gender: newUser.gender,
+        dateOfBirth: newUser.dateOfBirth.toISOString(),
+        phoneNumber: newUser.phoneNumber,
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
@@ -50,7 +54,9 @@ describe('User routes', () => {
       expect(dbUser).toMatchObject({
         name: newUser.name,
         address: newUser.address,
-        gender: 1,
+        gender: newUser.gender,
+        dateOfBirth: newUser.dateOfBirth,
+        phoneNumber: newUser.phoneNumber,
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
@@ -173,7 +179,9 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         name: userOne.name,
         address: userOne.address,
-        gender: 1,
+        gender: userOne.gender,
+        dateOfBirth: userOne.dateOfBirth.toISOString(),
+        phoneNumber: userOne.phoneNumber,
         email: userOne.email,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
@@ -402,7 +410,9 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         email: userOne.email,
         address: userOne.address,
-        gender: 1,
+        gender: userOne.gender,
+        dateOfBirth: userOne.dateOfBirth.toISOString(),
+        phoneNumber: userOne.phoneNumber,
         name: userOne.name,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
@@ -523,7 +533,9 @@ describe('User routes', () => {
       const updateBody = {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
-        gender: 1,
+        gender: 0,
+        dateOfBirth: faker.date.past(),
+        phoneNumber: faker.phone.phoneNumber(),
         email: faker.internet.email().toLowerCase(),
         password: 'newPassword1',
       };
@@ -539,7 +551,9 @@ describe('User routes', () => {
         id: userOne._id.toHexString(),
         name: updateBody.name,
         address: updateBody.address,
-        gender: 1,
+        gender: updateBody.gender,
+        dateOfBirth: updateBody.dateOfBirth.toISOString(),
+        phoneNumber: updateBody.phoneNumber,
         email: updateBody.email,
         role: 'user',
         isEmailVerified: false,
@@ -548,11 +562,13 @@ describe('User routes', () => {
       const dbUser = await User.findById(userOne._id);
       expect(dbUser).toBeDefined();
       expect(dbUser.password).not.toBe(updateBody.password);
-      // TODO: Check if hash new password is Match
+      // TODO: Check if hashed new password is Match
       expect(dbUser).toMatchObject({
         name: updateBody.name,
         address: updateBody.address,
-        gender: 1,
+        gender: updateBody.gender,
+        dateOfBirth: updateBody.dateOfBirth,
+        phoneNumber: updateBody.phoneNumber,
         email: updateBody.email,
         role: 'user',
       });

@@ -9,6 +9,8 @@ const createUser = {
     name: Joi.string().required(),
     address: Joi.string().required(),
     gender: Joi.number(),
+    dateOfBirth: Joi.date(),
+    phoneNumber: Joi.string(),
     role: Joi.string()
       .required()
       .valid(...roles),
@@ -41,7 +43,9 @@ const updateUser = {
       password: Joi.string().custom(password),
       name: Joi.string(),
       address: Joi.string(),
-      gender: Joi.number()
+      gender: Joi.number(),
+      dateOfBirth: Joi.date(),
+      phoneNumber: Joi.string()
     })
     .min(1),
 };

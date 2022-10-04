@@ -17,7 +17,13 @@ const userSchema = mongoose.Schema(
       trim: true,
     },
     gender: {
-      tyep: Number
+      type: Number
+    },
+    dateOfBirth: {
+      type: Date
+    },
+    phoneNumber: {
+      type: String
     },
     email: {
       type: String,

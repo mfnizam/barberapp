@@ -111,6 +111,7 @@ describe('Auth routes', () => {
         address: newBarber.address,
         email: newBarber.email,
         role: 'barber',
+        roleDetail: expect.anything(),
         isEmailVerified: false,
       });
 
@@ -122,6 +123,7 @@ describe('Auth routes', () => {
         address: newBarber.address,
         email: newBarber.email,
         role: 'barber',
+        roleDetail: expect.anything(),
         isEmailVerified: false,
       });
 
@@ -175,6 +177,9 @@ describe('Auth routes', () => {
         id: expect.anything(),
         name: userOne.name,
         address: userOne.address,
+        gender: userOne.gender,
+        dateOfBirth: userOne.dateOfBirth.toISOString(),
+        phoneNumber: userOne.phoneNumber,
         email: userOne.email,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,

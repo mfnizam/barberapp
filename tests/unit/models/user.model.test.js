@@ -9,6 +9,8 @@ describe('User model', () => {
         name: faker.name.findName(),
         address: faker.address.streetAddress(true),
         gender: 1,
+        dateOfBirth: faker.date.past(),
+        phoneNumber: faker.phone.phoneNumber(),
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
