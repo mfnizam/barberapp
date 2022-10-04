@@ -44,10 +44,19 @@ module.exports = router;
  *             required:
  *               - name
  *               - email
+ *               - address
  *               - password
  *               - role
  *             properties:
  *               name:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               gender:
+ *                 type: number
+ *               dateOfBirth:
+ *                 type: date
+ *               phoneNumber:
  *                 type: string
  *               email:
  *                 type: string
@@ -63,6 +72,10 @@ module.exports = router;
  *                  enum: [user, admin]
  *             example:
  *               name: fake name
+ *               address: fake long address
+ *               gender: 1
+ *               dateOfBirth: 2020-05-12T16:18:04.793Z
+ *               phoneNumber: '081885566778'
  *               email: fake@example.com
  *               password: password1
  *               role: user
@@ -198,6 +211,14 @@ module.exports = router;
  *             properties:
  *               name:
  *                 type: string
+ *               address:
+ *                 type: string
+ *               gender:
+ *                 type: number
+ *               dateOfBirth:
+ *                 type: date
+ *               phoneNumber:
+ *                 type: string
  *               email:
  *                 type: string
  *                 format: email
@@ -209,6 +230,10 @@ module.exports = router;
  *                 description: At least one number and one letter
  *             example:
  *               name: fake name
+ *               address: fake name
+ *               gender: 0
+ *               dateOfBirth: 2020-05-12T16:18:04.793Z
+ *               phoneNumber: '081885566778'
  *               email: fake@example.com
  *               password: password1
  *     responses:

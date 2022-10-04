@@ -12,6 +12,12 @@ components:
           type: string
         address:
           type: string
+        gender:
+          type: number
+        dateOfBirth:
+          type: date
+        phoneNumber:
+          type: string
         role:
           type: string
           enum: [user, admin]
@@ -20,6 +26,9 @@ components:
         email: fake@example.com
         name: fake name
         address: fake address
+        gender: 1
+        dateOfBirth: 2020-05-12T16:18:04.793Z
+        phoneNumber: '081885566778'
         role: user
 
     Token:
