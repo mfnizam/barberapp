@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.route('/').get(auth('getBarbers'), validate(barberValidation.getBarbers), barberController.getBarbers);
 
-router.route('/:userId').get(auth('getBarbers'), validate(barberValidation.getBarber), barberController.getBarber);
+router.route('/:userId')
+    .get(auth('getBarbers'), validate(barberValidation.getBarber), barberController.getBarber)
+    .patch(auth('manageUsers'), validate(barberValidation.updateBarber), barberController.updateBarber);
 
 module.exports = router;
 
@@ -113,3 +115,5 @@ module.exports = router;
  *       "404":
  *         $ref: '#/components/responses/NotFound'
  */
+
+// TODO: add swagger for updating barber

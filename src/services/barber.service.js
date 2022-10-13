@@ -47,23 +47,24 @@ const getBarberByUserId = async (userId) => {
 };
 
 /**
- * Update barber by id
- * @param {ObjectId} barberId
+ * Update barber by user id
+ * @param {ObjectId} userId
  * @param {Object} updateBody
- * @returns {Promise<Barber>}
+ * @returns {Promise<User>}
  */
-const updateBarberById = async (barberId, updateBody) => {
-  const barber = await getBarberById(barberId);
+ const updateBarberByUserId = async (userId, updateBody) => {
+  const barber = await getBarberByUserId(userId);
   if (!barber) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Barber not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  if (updateBody.user && (await Barber.isUserAlreadyBarber(updateBody.user, barberId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'User already register as barber');
+  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
   Object.assign(barber, updateBody);
   await barber.save();
   return barber;
 };
+
 
 /**
  * Delete barber by id
@@ -84,6 +85,6 @@ module.exports = {
   queryBarbers,
   getBarberById,
   getBarberByUserId,
-  updateBarberById,
+  updateBarberByUserId,
   deleteBarberById,
 };

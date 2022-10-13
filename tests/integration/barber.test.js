@@ -36,7 +36,7 @@ describe('User routes', () => {
         phoneNumber: barberOne.phoneNumber,
         email: barberOne.email,
         role: barberOne.role,
-        // roleDetail: barberOne.roleDetail,
+        // barber: barberOne.barber,
         isEmailVerified: barberOne.isEmailVerified,
       });
     });

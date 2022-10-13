@@ -21,7 +21,7 @@ components:
         role:
           type: string
           enum: [user, barber, admin]
-        roleDetail:
+        barber:
           type: string
       example:
         id: 5ebac534954b54139806c112
@@ -32,13 +32,17 @@ components:
         dateOfBirth: 2020-05-12T16:18:04.793Z
         phoneNumber: '081885566778'
         role: user
-        roleDetail: 5ebac534954b54139806c112
+        barber: 5ebac534954b54139806c112
 
     Barber:
       type: object
       properties:
         id:
           type: string
+        active:
+          type: boolean
+        price:
+          type: number
         detail:
           type: string
         workingHours: 
@@ -49,9 +53,9 @@ components:
               dayOfWeek:
                 type: number
               hourStart:
-                type: string
+                type: number
               hourEnd:
-                type: string
+                type: number
               close:
                 type: Boolean
 

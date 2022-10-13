@@ -7,7 +7,17 @@ const register = {
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
     address: Joi.string().required(),
-    role: Joi.string(),
+    role: 'user',
+  }),
+};
+
+const registerBarber = {
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().custom(password),
+    name: Joi.string().required(),
+    address: Joi.string().required(),
+    role: 'barber',
   }),
 };
 
@@ -53,6 +63,7 @@ const verifyEmail = {
 
 module.exports = {
   register,
+  registerBarber,
   login,
   logout,
   refreshTokens,

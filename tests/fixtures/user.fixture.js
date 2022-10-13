@@ -47,6 +47,8 @@ const userTwo = {
 const barberOneRoleDetail = {
   _id: ids.barberOneRoleDetail,
   user: ids.barberOne,
+  active: false,
+  price: 15000,
   detail: faker.lorem.lines(),
   workingHours: [
     {
@@ -55,38 +57,38 @@ const barberOneRoleDetail = {
     },
     {
       dayOfWeek: 1,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 2,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 3,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 4,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 5,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 6,
-      hourStart: '11:00',
-      hourEnd: '17:00',
+      hourStart: 0,
+      hourEnd: 120,
       close: false,
     },
   ],
@@ -102,13 +104,15 @@ const barberOne = {
   email: faker.internet.email().toLowerCase(),
   password,
   role: 'barber',
-  // roleDetail: barberOneRoleDetail._id,
+  // barber: barberOneRoleDetail._id,
   isEmailVerified: false,
 };
 
 const barberTwoRoleDetail = {
   _id: ids.barberOneRoleDetail,
   user: ids.barberOne,
+  active: false,
+  price: 25000,
   detail: faker.lorem.lines(),
   workingHours: [
     {
@@ -117,38 +121,38 @@ const barberTwoRoleDetail = {
     },
     {
       dayOfWeek: 1,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 2,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 3,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 4,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 5,
-      hourStart: '11:00',
-      hourEnd: '20:00',
+      hourStart: 0,
+      hourEnd: 60,
       close: false,
     },
     {
       dayOfWeek: 6,
-      hourStart: '11:00',
-      hourEnd: '17:00',
+      hourStart: 0,
+      hourEnd: 120,
       close: false,
     },
   ],
@@ -164,7 +168,7 @@ const barberTwo = {
   email: faker.internet.email().toLowerCase(),
   password,
   role: 'barber',
-  roleDetail: barberTwoRoleDetail,
+  barber: barberTwoRoleDetail,
   isEmailVerified: false,
 };
 

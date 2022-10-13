@@ -9,6 +9,14 @@ const barberSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: false
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
     detail: {
       type: String,
       trim: true,
@@ -20,13 +28,13 @@ const barberSchema = mongoose.Schema(
           required: true,
         },
         hourStart: {
-          type: String,
+          type: Number,
           required() {
             return this.close === false;
           },
         },
         hourEnd: {
-          type: String,
+          type: Number,
           required() {
             return this.close === false;
           },

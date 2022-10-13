@@ -12,14 +12,15 @@ const registerBarber = catchAsync(async (req, res) => {
   req.body.role = 'barber';
   const userCreate = await userService.createUser(req.body);
   const barber = await barberService.createBarber({ user: userCreate.id });
-  const user = await userService.updateUserById(userCreate.id, { roleDetail: barber.id });
+  const user = await userService.updateUserById(userCreate.id, { barber: barber.id });
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
 const login = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-  const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const userLogin = await authService.loginUserWithEmailAndPassword(email, password);
+  const user = await userService.getUserByIdPopulate(userLogin.id, 'barber');
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
 });

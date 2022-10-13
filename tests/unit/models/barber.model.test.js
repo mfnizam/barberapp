@@ -8,6 +8,8 @@ describe('Barber model', () => {
     beforeEach(() => {
       newBarber = {
         user: barberOne._id,
+        active: barberOne.active,
+        price: faker.commerce.price(10000, 50000, 0),
         detail: faker.lorem.lines(),
         workingHours: [
           {
@@ -16,38 +18,38 @@ describe('Barber model', () => {
           },
           {
             dayOfWeek: 1,
-            hourStart: '11:00',
-            hourEnd: '20:00',
+            hourStart: 0,
+            hourEnd: 60,
             close: false,
           },
           {
             dayOfWeek: 2,
-            hourStart: '11:00',
-            hourEnd: '20:00',
+            hourStart: 0,
+            hourEnd: 60,
             close: false,
           },
           {
             dayOfWeek: 3,
-            hourStart: '11:00',
-            hourEnd: '20:00',
+            hourStart: 0,
+            hourEnd: 60,
             close: false,
           },
           {
             dayOfWeek: 4,
-            hourStart: '11:00',
-            hourEnd: '20:00',
+            hourStart: 0,
+            hourEnd: 60,
             close: false,
           },
           {
             dayOfWeek: 5,
-            hourStart: '11:00',
-            hourEnd: '20:00',
+            hourStart: 0,
+            hourEnd: 60,
             close: false,
           },
           {
             dayOfWeek: 6,
-            hourStart: '11:00',
-            hourEnd: '17:00',
+            hourStart: 0,
+            hourEnd: 120,
             close: false,
           },
         ],
