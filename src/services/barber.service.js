@@ -1,18 +1,46 @@
 const httpStatus = require('http-status');
 const { Barber } = require('../models');
 const ApiError = require('../utils/ApiError');
+const UserService = require('./user.service');
 
 /**
  * Create a barber
  * @param {Object} barberBody
  * @returns {Promise<Barber>}
  */
-const createBarber = async (barberBody) => {
-  if (await Barber.isUserAlreadyBarber(barberBody.user)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'User already register as barber');
-  }
-  return Barber.create(barberBody);
+const createBarber = async (userBody) => {
+  const user = await UserService.createUser(userBody);
+  const barber = await Barber.create({ 
+    user: user.id, 
+    workingHours: [{
+      dayOfWeek: 0,
+      close: true
+    }, {
+      dayOfWeek: 1,
+      close: true
+    }, {
+      dayOfWeek: 2,
+      close: true
+    }, {
+      dayOfWeek: 3,
+      close: true
+    }, {
+      dayOfWeek: 4,
+      close: true
+    }, {
+      dayOfWeek: 5,
+      close: true
+    }, {
+      dayOfWeek: 6,
+      close: true
+    }] 
+  });
+  Object.assign(user, { barber: barber.id });
+  await user.save();
+  return await UserService.getUserByIdPopulate(user.id, ['barber']);
 };
+
+
 
 /**
  * Query for Barbers

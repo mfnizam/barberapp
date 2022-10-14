@@ -14,7 +14,7 @@ const getBarbers = catchAsync(async (req, res) => {
 });
 
 const getBarber = catchAsync(async (req, res) => {
-  const barber = await userService.getUserById(req.params.userId);
+  const barber = await userService.getUserByIdPopulate(req.params.userId, ['barber']);
   if (!barber) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Barber not found');
   }

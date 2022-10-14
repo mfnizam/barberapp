@@ -15,7 +15,9 @@ const barberSchema = mongoose.Schema(
     },
     price: {
       type: Number,
-      required: true,
+      required() {
+        return this.active === true;
+      }
     },
     detail: {
       type: String,
