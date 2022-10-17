@@ -21,6 +21,11 @@ const orderSchema = mongoose.Schema(
     price: {
       type: Number,
       required: true
+    },
+    status: {
+      type: Number, // 0 waiting approval from barber, 1 active, 2 done, 3 cancel
+      default: 0,
+      required: true
     }
   },
   {
