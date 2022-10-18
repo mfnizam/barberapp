@@ -11,9 +11,9 @@ router.route('/')
     .post(auth('createOrder'), validate(orderValidation.createOrder), orderController.createOrder);
 
 router
-    .route('/:userId')
-    .get(auth('getOrders'), validate(orderValidation.getOrder), orderController.getOrder);
-    // .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
+    .route('/:orderId')
+    .get(auth('getOrders'), validate(orderValidation.getOrder), orderController.getOrder)
+    .patch(auth('updateOrders'), validate(orderValidation.updateOrder), orderController.updateOrder);
     // .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
 
 module.exports = router;

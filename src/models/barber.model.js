@@ -68,24 +68,6 @@ barberSchema.statics.isUserAlreadyBarber = async function (user, excludeBarberId
 };
 
 /**
- * Check if password matches the barber's password
- * @param {string} password
- * @returns {Promise<boolean>}
- */
-barberSchema.methods.isPasswordMatch = async function (password) {
-  const barber = this;
-  return bcrypt.compare(password, barber.password);
-};
-
-barberSchema.pre('save', async function (next) {
-  const barber = this;
-  if (barber.isModified('password')) {
-    barber.password = await bcrypt.hash(barber.password, 8);
-  }
-  next();
-});
-
-/**
  * @typedef Barber
  */
 const Barber = mongoose.model('Barber', barberSchema);

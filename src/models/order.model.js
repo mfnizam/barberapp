@@ -26,6 +26,14 @@ const orderSchema = mongoose.Schema(
       type: Number, // 0 waiting approval from barber, 1 active, 2 done, 3 cancel
       default: 0,
       required: true
+    },
+    orderAt: {
+      type: Date,
+      default: Date.now(),
+      required: true
+    },
+    doneAt: {
+      type: Date
     }
   },
   {
@@ -36,6 +44,14 @@ const orderSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 orderSchema.plugin(toJSON);
 orderSchema.plugin(paginate);
+
+orderSchema.pre('save', async function (next) {
+  const order = this;
+  if (order.isModified('status')) {
+    if(order.status > 1) order.doneAt = Date.now();
+  }
+  next();
+});
 
 /**
  * @typedef Order
