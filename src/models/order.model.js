@@ -33,7 +33,14 @@ const orderSchema = mongoose.Schema(
       required: true
     },
     doneAt: {
-      type: Date
+      type: Date,
+      required() {
+        return this.status === 2;
+      }
+    },
+    review: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Review',
     }
   },
   {
@@ -45,8 +52,9 @@ const orderSchema = mongoose.Schema(
 orderSchema.plugin(toJSON);
 orderSchema.plugin(paginate);
 
-orderSchema.pre('save', async function (next) {
+orderSchema.pre('validate', async function (next) {
   const order = this;
+  console.log(order)
   if (order.isModified('status')) {
     if(order.status > 1) order.doneAt = Date.now();
   }

@@ -14,18 +14,18 @@ const createOrder = async (orderBody) => {
 };
 
 /**
- * Get user by id
+ * Get order by id
  * @param {ObjectId} id
- * @returns {Promise<User>}
+ * @returns {Promise<Order>}
  */
 const getOrderById = async (id) => {
   return Order.findById(id);
 };
 
 /**
- * Get user by id and populate
+ * Get order by id and populate
  * @param {ObjectId} id
- * @returns {Promise<User>}
+ * @returns {Promise<Order>}
  */
 const getOrderByIdPopulate = async (id, populate) => {
   return Order.findById(id).populate(populate);
@@ -41,7 +41,7 @@ const getOrderByIdPopulate = async (id, populate) => {
  * @returns {Promise<QueryResult>}
  */
 const queryOrders = async (filter, options) => {
-  options.populate = 'user,barber.barber'
+  options.populate = 'user,barber.barber,review'
   const orders = await Order.paginate(filter, options);
   return orders;
 };
