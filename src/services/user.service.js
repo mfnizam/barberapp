@@ -61,8 +61,28 @@ const getUserByEmail = async (email) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
-const updateUserById = async (userId, updateBody) => {
+ const updateUserById = async (userId, updateBody) => {
   const user = await getUserById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  }
+  Object.assign(user, updateBody);
+  await user.save();
+  return user;
+};
+
+
+/**
+ * Update user by id and populate
+ * @param {ObjectId} userId
+ * @param {Object} updateBody
+ * @returns {Promise<User>}
+ */
+ const updateUserByIdPopulate = async (userId, updateBody) => {
+  const user = await getUserByIdPopulate(userId, 'barber');
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
@@ -95,5 +115,6 @@ module.exports = {
   getUserByIdPopulate,
   getUserByEmail,
   updateUserById,
+  updateUserByIdPopulate,
   deleteUserById,
 };
