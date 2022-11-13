@@ -1,6 +1,10 @@
 const httpStatus = require('http-status');
 const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
+const axios = require('axios').default;
+const FormData = require('form-data');
+
+const otherServerUrl = "https://gobarber.asnatsuroyya.com/";
 
 /**
  * Create a user
@@ -42,7 +46,7 @@ const getUserById = async (id) => {
  * @param {ObjectId} id
  * @returns {Promise<User>}
  */
- const getUserByIdPopulate = async (id, populate) => {
+const getUserByIdPopulate = async (id, populate) => {
   return User.findById(id).populate(populate);
 };
 
@@ -61,7 +65,7 @@ const getUserByEmail = async (email) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
- const updateUserById = async (userId, updateBody) => {
+const updateUserById = async (userId, updateBody) => {
   const user = await getUserById(userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
@@ -81,7 +85,7 @@ const getUserByEmail = async (email) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
- const updateUserByIdPopulate = async (userId, updateBody) => {
+const updateUserByIdPopulate = async (userId, updateBody) => {
   const user = await getUserByIdPopulate(userId, 'barber');
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
@@ -92,6 +96,43 @@ const getUserByEmail = async (email) => {
   Object.assign(user, updateBody);
   await user.save();
   return user;
+};
+
+/**
+ * upload user ID verification 
+ * @param {ObjectId} userId
+ * @param {Object} updateBody
+ * @returns {Promise<User>}
+ */
+const uploadUserIDVerification = async (userId, file) => {
+
+  if (!file) throw new ApiError(httpStatus.BAD_REQUEST, 'File is not provided');
+
+  let form = new FormData();
+  form.append('file', file.buffer, {
+    filename: file.originalname,
+    contentType: file.mimetype
+  });
+  form.append('destination', 'images/verifikasi');
+
+  let upload = await axios.post(otherServerUrl + 'upload.php', form, {
+    headers: form.getHeaders()
+  });
+
+  if (!upload.data?.success) throw new ApiError(httpStatus.BAD_REQUEST, 'File cannot be saved');
+
+  return otherServerUrl + upload.data?.path;
+
+  // const user = await getUserByIdPopulate(userId, 'barber');
+  // if (!user) {
+  //   throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  // }
+  // if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+  // }
+  // Object.assign(user, updateBody);
+  // await user.save();
+  // return user;
 };
 
 /**
@@ -116,5 +157,6 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   updateUserByIdPopulate,
+  uploadUserIDVerification,
   deleteUserById,
 };

@@ -47,7 +47,8 @@ const updateUser = {
       dateOfBirth: Joi.date(),
       phoneNumber: Joi.string()
     })
-    .min(1),
+    .min(0),
+  file: Joi.string()
 };
 
 const deleteUser = {

@@ -25,7 +25,11 @@ const getUser = catchAsync(async (req, res) => {
 });
 
 const updateUser = catchAsync(async (req, res) => {
-  const user = await userService.updateUserByIdPopulate(req.params.userId, req.body);
+  // TODO: upload data to niagahoster server, create service to handdle upload img to niagahoster
+  let upload;
+  if (req.file) upload = await userService.uploadUserIDVerification(req.params.userId, req.file);
+  const user = await userService.updateUserByIdPopulate(req.params.userId, { ...req.body, ...upload ? { photoID: upload } : {} });
+
   res.send(user);
 });
 

@@ -58,6 +58,9 @@ const userSchema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Barber',
     },
+    photoID: {
+      type: String
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
