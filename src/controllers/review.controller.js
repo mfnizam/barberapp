@@ -2,13 +2,18 @@ const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
-const { reviewService, orderService } = require('../services');
+const { reviewService, orderService, barberService } = require('../services');
 
 const createReview = catchAsync(async (req, res) => {
   const order = await orderService.getOrderById(req.body.order);
   const review = await reviewService.createReview({ ...req.body, barber: order.barber, user: req.user.id });
-  await orderService.updateOrderById(req.body.order, { review: review.id })
-  res.status(httpStatus.CREATED).send(review);
+  await orderService.updateOrderById(req.body.order, { review: review.id });
+
+  let barberReview = await reviewService.queryReviews({ barber: order.barber }, {});
+  let barberStar = barberReview.results.map(item => item.star).reduce((prev, next) => prev + next) / barberReview.totalResults;
+  await barberService.updateBarberByUserId(order.barber, { star: barberStar })
+  
+  res.status(httpStatus.CREATED).send({ review, barberStar });
 });
 
 const getReviews = catchAsync(async (req, res) => {
@@ -34,6 +39,6 @@ const getReviews = catchAsync(async (req, res) => {
 module.exports = {
   createReview,
   getReviews,
-//   getReview,
-//   updateReview
+  //   getReview,
+  //   updateReview
 };

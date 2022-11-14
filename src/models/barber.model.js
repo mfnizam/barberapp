@@ -46,6 +46,10 @@ const barberSchema = mongoose.Schema(
         },
       },
     ],
+    star: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true,
